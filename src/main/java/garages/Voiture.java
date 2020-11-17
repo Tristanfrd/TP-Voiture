@@ -12,14 +12,13 @@ public class Voiture {
 		if (null == i) {
 			throw new IllegalArgumentException("Une voiture doit avoir une immatriculation");
 		}
-
 		immatriculation = i;
 	}
 
 	public String getImmatriculation() {
 		return immatriculation;
 	}
-
+        
 	/**
 	 * Fait rentrer la voiture au garage 
          * Précondition : la voiture ne doit pas être déjà dans un garage
@@ -29,6 +28,9 @@ public class Voiture {
 	 */
 	public void entreAuGarage(Garage g) throws Exception {
 		// Et si la voiture est déjà dans un garage ?
+                if (this.estDansUnGarage()==true){
+                    throw new IllegalArgumentException ("La voiture est déja dans un garage.");
+                }
 		Stationnement s = new Stationnement(this, g);
 		myStationnements.add(s);
 	}
@@ -40,8 +42,14 @@ public class Voiture {
 	 * @throws java.lang.Exception si la voiture n'est pas dans un garage
 	 */
 	public void sortDuGarage() throws Exception {
-		throw new UnsupportedOperationException("Pas encore implémenté");
-		// TODO: Implémenter cette méthode
+		// TODO: Implémenter cette méthode               
+                  if (this.estDansUnGarage()==true){
+                      Stationnement Laststa = myStationnements.get(myStationnements.size()-1);
+                      Laststa.terminer();
+                  }else
+                      throw new IllegalArgumentException("La voiture n'est pas dans un garage");
+                  
+                
 		// Trouver le dernier stationnement de la voiture
 		// Terminer ce stationnement
 	}
@@ -51,17 +59,26 @@ public class Voiture {
 	 */
 	public Set<Garage> garagesVisites() {
 		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
-	}
+            HashSet<Garage> garVis = new HashSet<Garage>();
+            for (Stationnement s: myStationnements){
+                garVis.add(s.getGarage());
+            }
+            return garVis;
+        }
 
 	/**
 	 * @return vrai si la voiture est dans un garage, faux sinon
 	 */
 	public boolean estDansUnGarage() {
 		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+            Stationnement Laststa = myStationnements.get(myStationnements.size()-1);
+            if(Laststa.estEnCours()){
+                return true;
+            }else
+                return false;               
 		// Vrai si le dernier stationnement est en cours
 	}
+        
 
 	/**
 	 * Pour chaque garage visité, imprime le nom de ce garage suivi de la liste des dates d'entrée / sortie dans ce
