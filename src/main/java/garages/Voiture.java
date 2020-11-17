@@ -30,7 +30,7 @@ public class Voiture {
 		// Et si la voiture est déjà dans un garage ?
                 if (this.estDansUnGarage()==true){
                     throw new IllegalArgumentException ("La voiture est déja dans un garage.");
-                }
+                }else;
 		Stationnement s = new Stationnement(this, g);
 		myStationnements.add(s);
 	}
@@ -71,13 +71,17 @@ public class Voiture {
 	 */
 	public boolean estDansUnGarage() {
 		// TODO: Implémenter cette méthode
+            if(myStationnements.size()-1==-1){
+                return false;}
+            else;
             Stationnement Laststa = myStationnements.get(myStationnements.size()-1);
             if(Laststa.estEnCours()){
                 return true;
-            }else
-                return false;               
+            }else  
+                return false;  }
+
 		// Vrai si le dernier stationnement est en cours
-	}
+	
         
 
 	/**
@@ -96,7 +100,10 @@ public class Voiture {
 	 */
 	public void imprimeStationnements(PrintStream out) {
 		// TODO: Implémenter cette méthode
-		throw new UnsupportedOperationException("Pas encore implémenté");
+                for(Stationnement s: myStationnements){
+                    System.out.println(s.getGarage()+":\nStationnement: entrée"+s.getEntree()+" , "+s.getFin());
+            }    
+            }
 	}
 
-}
+
