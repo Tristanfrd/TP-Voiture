@@ -28,7 +28,7 @@ public class Voiture {
 	 */
 	public void entreAuGarage(Garage g) throws Exception {
 		// Et si la voiture est déjà dans un garage ?
-                if (this.estDansUnGarage()==true){
+                if (this.estDansUnGarage()== true){
                     throw new IllegalArgumentException ("La voiture est déja dans un garage.");
                 }else;
 		Stationnement s = new Stationnement(this, g);
@@ -73,7 +73,7 @@ public class Voiture {
 		// TODO: Implémenter cette méthode
             if(myStationnements.size()-1==-1){
                 return false;}
-            else;
+            
             Stationnement Laststa = myStationnements.get(myStationnements.size()-1);
             if(Laststa.estEnCours()){
                 return true;
@@ -100,9 +100,20 @@ public class Voiture {
 	 */
 	public void imprimeStationnements(PrintStream out) {
 		// TODO: Implémenter cette méthode
-                for(Stationnement s: myStationnements){
-                    System.out.println(s.getGarage()+":\nStationnement: entrée"+s.getEntree()+" , "+s.getFin());
-            }    
+        LinkedList<Stationnement> stationnements = new LinkedList<>(myStationnements);
+                
+         for(int i=0; i<stationnements.size();i++){
+            String garage = stationnements.get(i).getGarage().toString();
+            out.append(garage+"\n");
+            out.append(stationnements.get(i).toString()+"\n");
+            
+            for(int j=i+1; j<stationnements.size();j++){
+                if(stationnements.get(j).getGarage()== stationnements.get(i).getGarage()){
+                    out.append(stationnements.get(j).toString()+"\n");
+                    stationnements.remove(stationnements.get(j));
+                }
+            }
+        }    
             }
 	}
 
